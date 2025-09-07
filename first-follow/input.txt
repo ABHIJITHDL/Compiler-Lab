@@ -1,0 +1,9 @@
+5
+E=TX
+X=+TX
+X=#
+T=FY
+Y=*FY
+Y=#
+F=(E)
+F=i

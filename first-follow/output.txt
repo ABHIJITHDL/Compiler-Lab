@@ -1,0 +1,11 @@
+FIRST Sets:
+FIRST(E) = {  }
+FIRST(X) = { + # }
+FIRST(T) = {  }
+FIRST(Y) = { * }
+
+FOLLOW Sets:
+FOLLOW(E) = { $ }
+FOLLOW(X) = { $ }
+FOLLOW(T) = { + $ }
+FOLLOW(Y) = { + $ }
