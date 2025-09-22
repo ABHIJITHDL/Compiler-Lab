@@ -15,31 +15,32 @@ struct tac {
     char res[10];
 };
 
-int findVarInReg(char* var) {
+int getReg(char* var) {
+    // First check if variable is already in a register
     for (int i = 0; i < 4; i++) {
         if (strcmp(regVar[i], var) == 0) {
             return i;
         }
     }
-    return -1;
-}
-
-int getRegister() {
+    
+    // If not found, allocate a new register
     if (regCount < 4) {
-        return regCount++;
+        int newReg = regCount++;
+        printf("MOV %s, %s\n", reg[newReg], var);
+        strcpy(regVar[newReg], var);
+        return newReg;
     }
-    return 0; // Reuse AX if all registers used
+    
+    // If all registers used, reuse AX
+    printf("MOV %s, %s\n", reg[0], var);
+    strcpy(regVar[0], var);
+    return 0;
 }
 
 void generateCode(struct tac t) {
     printf("// %s = %s %s %s\n", t.res, t.op1, t.op, t.op2);
     
-    int r1 = findVarInReg(t.op1);
-    if (r1 == -1) {
-        r1 = getRegister();
-        printf("MOV %s, %s\n", reg[r1], t.op1);
-        strcpy(regVar[r1], t.op1);
-    }
+    int r1 = getReg(t.op1);
     
     switch(t.op[0]) {
         case '+':
@@ -57,7 +58,7 @@ void generateCode(struct tac t) {
     }
     
     printf("MOV %s, %s\n", t.res, reg[r1]);
-    strcpy(regVar[r1], t.res); // Update register to hold result variable
+    strcpy(regVar[r1], t.res);
     printf("\n");
 }
 
