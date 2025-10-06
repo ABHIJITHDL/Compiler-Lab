@@ -95,6 +95,10 @@ int main(){
         }
     }
 
+    if(res != NULL){
+        printf("%s = %s\n", res, opstack[opt]);
+    }
+
     return 0;
 
 }

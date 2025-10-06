@@ -6,7 +6,7 @@
 
 int regCount = 0;
 char reg[4][5] = {"AX", "BX", "CX", "DX"};
-char regVar[4][10] = {"", "", "", ""}; // Track which variable is in each register
+char regVar[4][10] = {"", "", "", ""}; 
 
 struct tac {
     char op[10];
@@ -16,14 +16,14 @@ struct tac {
 };
 
 int getReg(char* var) {
-    // First check if variable is already in a register
+
     for (int i = 0; i < 4; i++) {
         if (strcmp(regVar[i], var) == 0) {
             return i;
         }
     }
     
-    // If not found, allocate a new register
+
     if (regCount < 4) {
         int newReg = regCount++;
         printf("MOV %s, %s\n", reg[newReg], var);
@@ -31,7 +31,7 @@ int getReg(char* var) {
         return newReg;
     }
     
-    // If all registers used, reuse AX
+
     printf("MOV %s, %s\n", reg[0], var);
     strcpy(regVar[0], var);
     return 0;
